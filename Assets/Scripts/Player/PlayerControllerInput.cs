@@ -109,8 +109,9 @@ namespace Player
             dir.y = newY;
             
             Debug.Log(dir.normalized);
-
-            if (dir.sqrMagnitude == 0)
+            Debug.Log(dir.sqrMagnitude);
+            Debug.Log("Hello World!");
+            if (dir.sqrMagnitude == 0 || float.IsNaN(dir.sqrMagnitude))
             {
                 return;
             }
