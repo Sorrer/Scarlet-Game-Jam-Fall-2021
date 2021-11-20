@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameForward: {x: 0, y: 0, z: 0}
   ToastLaunchStrength: 0.025
-  MaxToastLaunchStrength: 7
-  ToastConstantRotationSpeed: {x: 0, y: 0, z: 10}
+  MaxToastLaunchStrength: 8
+  ToastConstantRotationSpeed: {x: 0, y: 0, z: -10}
   ToastInvulnerableTime: 0

@@ -34,7 +34,7 @@ namespace Player
                 
                 
                 //ToastController.LaunchToast((Vector3.right + Vector3.up).normalized * masterSettings.ToastLaunchStrength);
-                Debug.Log(Input.mousePosition);
+                //Debug.Log(Input.mousePosition);
                 StartDrag(Input.mousePosition);
                 EndPointDEBUG.gameObject.SetActive(true);
                 StartPointDEBUG.gameObject.SetActive(true);
@@ -54,7 +54,8 @@ namespace Player
             }
 
             var touches = Input.touches;
-            
+            Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
+            //Debug.Log(Vector3.Dot((screenCenter - Input.mousePosition).normalized, Vector3.up));
             
         }
 
@@ -79,7 +80,7 @@ namespace Player
             EndPointDEBUG.position = position;
             debugEndDrag = StartCoroutine(DISABLE_DEBUG());
 
-            Debug.Log("Drag start end - " + StartDragPos + " " + EndDragPos);
+            //Debug.Log("Drag start end - " + StartDragPos + " " + EndDragPos);
             Vector3 dir = (StartDragPos - EndDragPos);
             
             ToastController.LaunchToast(dir * masterSettings.ToastLaunchStrength);

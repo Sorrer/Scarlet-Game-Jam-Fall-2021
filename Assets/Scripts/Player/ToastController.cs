@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using ScriptableObjects;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Player
@@ -12,11 +14,15 @@ namespace Player
         public MasterSettings _masterSettings;
         public bool isFrozen = false;
 
+        public Transform home;
+        public TriggerObject triggerObject;
         private bool isInvulnerable = false;
         public bool isFalling = false;
-        private float isFallingCheckFreezeTime = 2f;
+        private float isFallingCheckFreezeTime = 3f;
 
         private Coroutine CheckFreezeFall;
+        private ContactPoint[] _contactPoints = new ContactPoint[0];
+        private bool freezeNextFrame;
         
         private void Start()
         {
@@ -45,6 +51,26 @@ namespace Player
                     CheckFreezeFall = null;
                 }
             }
+
+
+        }
+
+        private void FixedUpdate()
+        {
+            if (freezeNextFrame)
+            {
+                isFrozen = true;
+                isFalling = false;
+                
+                _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                freezeNextFrame = false;
+                
+                
+                if (triggerObject.IsTriggered)
+                {
+                    ReturnHome();
+                }
+            }
         }
 
         private IEnumerator CheckFreezeFallCoroutine()
@@ -62,9 +88,9 @@ namespace Player
 
         public void FreezeToast()
         {
-            _rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-            isFrozen = true;
-            isFalling = false;
+            if (freezeNextFrame) return;
+            freezeNextFrame = true;
+            
         }
 
         public void UnfreezeToast()
@@ -80,21 +106,31 @@ namespace Player
             vectorForce *= Mathf.Clamp(magnitude, float.Epsilon, _masterSettings.MaxToastLaunchStrength);
             if (magnitude == 0) return;
             Debug.Log("Force being applied - " + vectorForce + " " + magnitude);
-            
+
             UnfreezeToast();
             _rigidbody.AddForce(vectorForce, ForceMode.Impulse);
         }
 
+
         
         public bool IsFaceDown()
         {
-            return true;
+            return false;
         }
 
 
         private void OnCollisionEnter(Collision other)
         {
+            _contactPoints = other.contacts;
             FreezeToast();
+        }
+
+
+        public void ReturnHome(bool freeze = true)
+        {
+            if(freeze) FreezeToast();
+            this.transform.position = home.transform.position;
+            this.transform.eulerAngles = Vector3.zero;
         }
         
         
