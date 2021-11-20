@@ -55,6 +55,8 @@ namespace Player
 
         private void FixedUpdate()
         {
+            if (this.transform.position.y < -100) ReturnHome();
+            
             if (freezeNextFrame)
             {
                 if (frozenFramesCount != FROZEN_FRAME_CHECK)
@@ -122,6 +124,7 @@ namespace Player
 
         public void LaunchToast(Vector2 vectorForce, float rotationMultiplier)
         {
+            vectorForce = vectorForce +  _masterSettings.ToastInitialLaunchStrength;
             float magnitude = vectorForce.magnitude;
             vectorForce /= magnitude;
             vectorForce *= Mathf.Clamp(magnitude, float.Epsilon, _masterSettings.MaxToastLaunchStrength);
@@ -155,6 +158,7 @@ namespace Player
             this.transform.position = home.transform.position;
             this.transform.eulerAngles = Vector3.zero;
         }
+        
         
         
     }

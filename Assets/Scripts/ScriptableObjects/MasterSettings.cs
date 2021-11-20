@@ -19,13 +19,13 @@ namespace ScriptableObjects
         
         
         public float MaxToastLaunchStrength;
-        
+        public Vector2 ToastInitialLaunchStrength;
         /// <summary>
         /// Speed the toast constantly rotates as
         /// </summary>
         public Vector3 ToastConstantRotationSpeed;
 
-
+        
 
         public float ToastInvulnerableTime;
 

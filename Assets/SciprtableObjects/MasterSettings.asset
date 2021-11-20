@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: MasterSettings
   m_EditorClassIdentifier: 
   GameForward: {x: 0, y: 0, z: 0}
-  ToastLaunchStrength: 1000
-  MaxToastLaunchStrength: 8
-  ToastConstantRotationSpeed: {x: 0, y: 0, z: -0.25}
+  ToastLaunchStrength: 900
+  MaxToastLaunchStrength: 7
+  ToastInitialLaunchStrength: {x: 0, y: 3}
+  ToastConstantRotationSpeed: {x: 0, y: 0, z: -0.17}
   ToastInvulnerableTime: 0
   halfScreenMaxPullPercentage: 60
