@@ -30,5 +30,7 @@ namespace ScriptableObjects
         public float ToastInvulnerableTime;
 
 
+        public float halfScreenMaxPullPercentage;
+
     }
 }

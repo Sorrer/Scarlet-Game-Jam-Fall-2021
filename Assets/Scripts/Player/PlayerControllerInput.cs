@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DigitalRubyShared;
 using ScriptableObjects;
 using UnityEngine;
 
@@ -14,14 +15,14 @@ namespace Player
 
         public RectTransform StartPointDEBUG;
         public RectTransform EndPointDEBUG;
-
+        
 
         public bool IsDraggin = false;
 
         private Vector3 StartDragPos, EndDragPos;
         private Coroutine debugEndDrag;
-        
-        
+
+        public CameraMover cameraMover;
         private void Update()
         {
             if (Input.GetMouseButtonDown(0) && !IsDraggin && !ToastController.isFalling)
@@ -45,6 +46,16 @@ namespace Player
             if (IsDraggin)
             {
                 EndPointDEBUG.position = Input.mousePosition;
+
+                if (Input.mousePosition.x > StartDragPos.x)
+                {
+                    cameraMover.InvertTargetOfStart();
+                }
+                else
+                {
+                    cameraMover.TargetOfStart();
+                }
+                
             }
             
             if (Input.GetMouseButtonUp(0))
@@ -54,6 +65,9 @@ namespace Player
             }
 
             var touches = Input.touches;
+
+            
+            
             Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2);
             //Debug.Log(Vector3.Dot((screenCenter - Input.mousePosition).normalized, Vector3.up));
             
@@ -83,7 +97,20 @@ namespace Player
             //Debug.Log("Drag start end - " + StartDragPos + " " + EndDragPos);
             Vector3 dir = (StartDragPos - EndDragPos);
             
-            ToastController.LaunchToast(dir * masterSettings.ToastLaunchStrength);
+            float halfWidth = Screen.width / 2;
+            halfWidth *= masterSettings.halfScreenMaxPullPercentage;
+
+            Debug.Log(dir.normalized);
+            
+            float newX = dir.x / halfWidth;
+            float newY = dir.y * (newX / dir.x);
+
+            dir.x = newX;
+            dir.y = newY;
+            
+            Debug.Log(dir.normalized);
+            
+            ToastController.LaunchToast(dir * masterSettings.ToastLaunchStrength, dir.x < 0 ? -1.0f : 1.0f);
         }
 
         public IEnumerator DISABLE_DEBUG()

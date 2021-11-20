@@ -23,6 +23,9 @@ namespace Player
         private Coroutine CheckFreezeFall;
         private ContactPoint[] _contactPoints = new ContactPoint[0];
         private bool freezeNextFrame;
+
+        private const int FROZEN_FRAME_CHECK = 10;
+        private int frozenFramesCount;
         
         private void Start()
         {
@@ -31,10 +34,6 @@ namespace Player
 
         private void Update()
         {
-            if (!isFrozen && !isFalling)
-            {
-                _rigidbody.angularVelocity = _masterSettings.ToastConstantRotationSpeed;
-            }
 
             if (isFalling && _rigidbody.velocity.magnitude == 0)
             {
@@ -52,13 +51,27 @@ namespace Player
                 }
             }
 
-
         }
 
         private void FixedUpdate()
         {
             if (freezeNextFrame)
             {
+                if (frozenFramesCount != FROZEN_FRAME_CHECK)
+                {
+                    if (_rigidbody.velocity.magnitude != 0)
+                    {
+                        frozenFramesCount = 0;
+                    }
+                    else
+                    {
+                        frozenFramesCount++;
+                    }
+
+                    return;
+                }
+                
+                
                 isFrozen = true;
                 isFalling = false;
                 
@@ -69,6 +82,14 @@ namespace Player
                 if (triggerObject.IsTriggered)
                 {
                     ReturnHome();
+                }
+            }
+            else
+            {
+                
+                if (!isFrozen && !isFalling)
+                {
+                    //_rigidbody.angularVelocity = _masterSettings.ToastConstantRotationSpeed;
                 }
             }
         }
@@ -90,7 +111,7 @@ namespace Player
         {
             if (freezeNextFrame) return;
             freezeNextFrame = true;
-            
+            frozenFramesCount = 0;
         }
 
         public void UnfreezeToast()
@@ -99,7 +120,7 @@ namespace Player
             _rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
         }
 
-        public void LaunchToast(Vector2 vectorForce)
+        public void LaunchToast(Vector2 vectorForce, float rotationMultiplier)
         {
             float magnitude = vectorForce.magnitude;
             vectorForce /= magnitude;
@@ -109,6 +130,8 @@ namespace Player
 
             UnfreezeToast();
             _rigidbody.AddForce(vectorForce, ForceMode.Impulse);
+            _rigidbody.AddTorque(_masterSettings.ToastConstantRotationSpeed * rotationMultiplier, ForceMode.Impulse);
+            FreezeToast();
         }
 
 
@@ -121,8 +144,8 @@ namespace Player
 
         private void OnCollisionEnter(Collision other)
         {
-            _contactPoints = other.contacts;
-            FreezeToast();
+            //_contactPoints = other.contacts;
+            //FreezeToast();
         }
 
 
