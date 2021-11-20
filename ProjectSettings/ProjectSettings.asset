@@ -764,7 +764,23 @@ PlayerSettings:
   webGLLinkerTarget: 1
   webGLThreadsSupport: 0
   webGLDecompressionFallback: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: dUI_MANAGER;dUI_TextMeshPro
+    CloudRendering: dUI_MANAGER;dUI_TextMeshPro
+    EmbeddedLinux: dUI_MANAGER;dUI_TextMeshPro
+    GameCoreScarlett: dUI_MANAGER;dUI_TextMeshPro
+    GameCoreXboxOne: dUI_MANAGER;dUI_TextMeshPro
+    Lumin: dUI_MANAGER;dUI_TextMeshPro
+    Nintendo Switch: dUI_MANAGER;dUI_TextMeshPro
+    PS4: dUI_MANAGER;dUI_TextMeshPro
+    PS5: dUI_MANAGER;dUI_TextMeshPro
+    Stadia: dUI_MANAGER;dUI_TextMeshPro
+    Standalone: dUI_MANAGER;dUI_TextMeshPro
+    WebGL: dUI_MANAGER;dUI_TextMeshPro
+    Windows Store Apps: dUI_MANAGER;dUI_TextMeshPro
+    XboxOne: dUI_MANAGER;dUI_TextMeshPro
+    iPhone: dUI_MANAGER;dUI_TextMeshPro
+    tvOS: dUI_MANAGER;dUI_TextMeshPro
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend: {}

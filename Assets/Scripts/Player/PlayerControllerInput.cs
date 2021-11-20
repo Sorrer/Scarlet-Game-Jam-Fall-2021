@@ -109,6 +109,11 @@ namespace Player
             dir.y = newY;
             
             Debug.Log(dir.normalized);
+
+            if (dir.sqrMagnitude == 0)
+            {
+                return;
+            }
             
             ToastController.LaunchToast(dir * masterSettings.ToastLaunchStrength, dir.x < 0 ? -1.0f : 1.0f);
         }

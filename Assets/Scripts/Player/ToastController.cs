@@ -124,6 +124,7 @@ namespace Player
 
         public void LaunchToast(Vector2 vectorForce, float rotationMultiplier)
         {
+            
             vectorForce = vectorForce +  _masterSettings.ToastInitialLaunchStrength;
             float magnitude = vectorForce.magnitude;
             vectorForce /= magnitude;
