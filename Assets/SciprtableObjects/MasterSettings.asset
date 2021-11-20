@@ -18,4 +18,4 @@ MonoBehaviour:
   ToastInitialLaunchStrength: {x: 0, y: 3}
   ToastConstantRotationSpeed: {x: 0, y: 0, z: -0.17}
   ToastInvulnerableTime: 0
-  halfScreenMaxPullPercentage: 60
+  halfScreenMaxPullPercentage: 0.6

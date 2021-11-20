@@ -11,6 +11,7 @@ public class TriggerObject : MonoBehaviour
     
     public void OnTriggerEnter(Collider other)
     {
+        if (other.GetComponent<Collider>().isTrigger) return;   
         colliding.Add(other.gameObject);
     }
 

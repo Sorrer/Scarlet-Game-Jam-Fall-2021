@@ -11,6 +11,7 @@ public class TriggerActivate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Triggered.Invoke();
+        Debug.Log("Triggered");
+        Triggered?.Invoke();
     }
 }

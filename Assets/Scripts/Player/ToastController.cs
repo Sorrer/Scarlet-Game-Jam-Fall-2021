@@ -10,6 +10,9 @@ namespace Player
     public class ToastController : MonoBehaviour
     {
 
+        public static ToastController instance;
+        
+        
         public Rigidbody _rigidbody;
         public MasterSettings _masterSettings;
         public bool isFrozen = false;
@@ -26,7 +29,12 @@ namespace Player
 
         private const int FROZEN_FRAME_CHECK = 10;
         private int frozenFramesCount;
-        
+
+        private void Awake()
+        {
+            instance = this;
+        }
+
         private void Start()
         {
             FreezeToast();
